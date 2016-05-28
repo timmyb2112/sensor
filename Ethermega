@@ -60,7 +60,7 @@ void loop() {
         sprintf("VAL", "%d", "VAL2");
         
         my_conn.cmd_query(INSERT_DATA);
-        Serial.println(VAL2);
+        Serial.println(VAL);
    // my_conn.show_results();
     delay(1000);
     num_fails = 0;
