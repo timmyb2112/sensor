@@ -1,2 +1,2 @@
 # sensor
-arduino sensor code
+arduino sensor code using a ethermega, reed switch on a0
