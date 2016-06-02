@@ -9,7 +9,7 @@
 #include <sha1.h>
 #include <mysql.h>
 #include <stdio.h> 
-
+#include <math.h>
 /* Setup for Ethernet Library */
 byte mac_addr[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
 IPAddress server_addr(192, 168, 1, 17); 
@@ -20,7 +20,8 @@ Connector my_conn;        // The Connector/Arduino reference
 char user[] = "sensor1";
 char password[] = "sensor1";
 char QUERY_SQL[] = "select @@version";
-char INSERT_DATA[] = "INSERT INTO `sensor1`.`shed` (`id`, `sensor`, `val`) VALUES (NULL, '1', VAL);";
+char INSERT_DATA[] = "INSERT INTO `sensor1`.`shed` (`id`, `sensor`, `val`) VALUES (NULL, '1', 'open');";
+char INSERT_DATA2[] = "INSERT INTO `sensor1`.`shed` (`id`, `sensor`, `val`) VALUES (NULL, '1', 'closed');";
 
 
 int top = 666;
@@ -55,11 +56,10 @@ void soft_reset() {
 void loop() {  
  char buffer[50];
  delay(1000);
+ VAL = analogRead(SPIN); // Fill the sensorReading with the information from sensor 
   if (my_conn.is_connected()) {
-        VAL = analogRead(SPIN); // Fill the sensorReading with the information from sensor
-        sprintf("VAL", "%d", "VAL2");
-        
-        my_conn.cmd_query(INSERT_DATA);
+    
+    my_conn.cmd_query(INSERT_DATA);
         Serial.println(VAL);
    // my_conn.show_results();
     delay(1000);
