@@ -27,7 +27,7 @@ char INSERT_DATA2[] = "INSERT INTO `sensor1`.`shed` (`id`, `sensor`, `val`) VALU
 int top = 666;
 int SPIN = 0;  // Analog input pin on Arduino we connected the SIG pin from sensor
 int VAL = 0;// Here we will place our reading
-int VAL2 = 0;
+int VAL_REF = 0; //reference to check senosr from
 
 
 
@@ -57,9 +57,14 @@ void loop() {
  char buffer[50];
  delay(1000);
  VAL = analogRead(SPIN); // Fill the sensorReading with the information from sensor 
-  if (my_conn.is_connected()) {
-    
+  if (VAL ==VAL_REF) {
+   my_conn.cmd_query(INSERT_DATA2); 
+  } else {
     my_conn.cmd_query(INSERT_DATA);
+  }
+  if (my_conn.is_connected()) {
+  
+        
         Serial.println(VAL);
    // my_conn.show_results();
     delay(1000);
